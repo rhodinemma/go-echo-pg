@@ -1,9 +1,11 @@
 package database
 
 import (
+	"context"
 	"fmt"
 	"time"
 
+	"github.com/rhodinemma/go-echo-pg/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -11,6 +13,14 @@ import (
 
 type DatabaseClient interface {
 	Ready() bool
+
+	GetAllCustomers(ctx context.Context, emailAddress string) ([]models.Customer, error)
+
+	GetAllProducts(ctx context.Context, vendorID string) ([]models.Product, error)
+
+	GetAllServices(ctx context.Context) ([]models.Service, error)
+
+	GetAllVendors(ctx context.Context) ([]models.Vendor, error)
 }
 
 type Client struct {
